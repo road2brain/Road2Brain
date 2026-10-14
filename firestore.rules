@@ -1,0 +1,89 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.admin == true ||
+        request.auth.token.role == 'admin' ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'
+      );
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      // Anyone authenticated can read user public profiles, or admin can read
+      allow read: if isAuthenticated();
+      
+      // User can create their initial profile (cannot set role to admin)
+      allow create: if isOwner(userId) && 
+        (!('role' in request.resource.data) || request.resource.data.role == 'student');
+      
+      // User can update their own profile, but CANNOT escalate their own role
+      allow update: if (isOwner(userId) && 
+        (!('role' in request.resource.data) || request.resource.data.role == resource.data.role)) || 
+        isAdmin();
+        
+      allow delete: if isAdmin();
+      
+      // Bookmarks subcollection
+      match /bookmarks/{bookmarkId} {
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
+      
+      // Roadmap progress subcollection
+      match /roadmapProgress/{progressId} {
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
+    }
+    
+    // Opportunities collection
+    match /opportunities/{opportunityId} {
+      // Public can read only published, verified listings
+      allow read: if (resource.data.status == 'published' && resource.data.verificationStatus == 'verified') || isAdmin();
+      
+      // Only administrators can create, update, or delete opportunities
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Courses collection
+    match /courses/{courseId} {
+      // Public can read only published courses
+      allow read: if resource.data.status == 'published' || isAdmin();
+      
+      // Only administrators can create, update, or delete courses
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Roadmaps collection
+    match /roadmaps/{roadmapId} {
+      // Public can read published roadmaps
+      allow read: if resource.data.status == 'published' || isAdmin();
+      
+      // Only administrators can create, update, or delete roadmaps
+      allow create, update, delete: if isAdmin();
+      
+      // Milestones subcollection
+      match /milestones/{milestoneId} {
+        allow read: if true;
+        allow write: if isAdmin();
+      }
+    }
+    
+    // Verification audit logs
+    match /verificationLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin();
+      allow update, delete: if false; // immutable audit log
+    }
+  }
+}

@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+Allow: /opportunities
+Allow: /opportunities/*
+Allow: /courses
+Allow: /roadmaps
+Allow: /roadmaps/*
+Allow: /about
+Allow: /contact
+Allow: /privacy
+Allow: /terms
+
+# Disallow private user and admin routes
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /forgot-password
+
+Sitemap: https://road2brain.web.app/sitemap.xml
