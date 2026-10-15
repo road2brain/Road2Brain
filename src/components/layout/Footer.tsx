@@ -2,31 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BrandLogo } from '@/components/common/BrandLogo';
 import { ShieldCheck, Heart } from 'lucide-react';
-import { GridScan } from '@/components/reactbits/GridScan';
 
 export const Footer: React.FC = () => {
   return (
     <footer className="relative bg-brand-navy text-slate-300 border-t border-slate-800 overflow-hidden">
-      {/* React Bits GridScan Interactive Radar Background */}
-      <div className="absolute inset-0 opacity-25 pointer-events-none">
-        <GridScan
-          linesColor="#4d4757"
-          scanColor="#7dd3fc"
-          cells={8}
-          depth={3}
-          scanDuration={2.4}
-          scanDelay={1.6}
-          clickEffect="ping"
-        />
-      </div>
-
-      {/* Large Glowing Logo Watermark in Footer Background */}
-      <div className="absolute -right-16 -bottom-10 sm:right-6 sm:-bottom-8 pointer-events-none select-none opacity-[0.08] transition-opacity">
+      {/* Official Road 2 Brain Logo Background Backdrop */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <img
           src="/logo.png"
           alt=""
-          className="w-[400px] sm:w-[580px] max-w-none object-contain filter invert brightness-150"
+          className="w-[480px] sm:w-[700px] lg:w-[850px] max-w-none object-contain opacity-[0.07] filter invert brightness-200 transform scale-105"
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/60 via-transparent to-brand-navy/80 pointer-events-none" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
