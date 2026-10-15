@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Compass, Sparkles, AlertCircle } from 'lucide-react';
+import { Compass, Sparkles, AlertCircle, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { OpportunityFilters, FilterState } from '@/components/opportunities/OpportunityFilters';
 import { OpportunityCard } from '@/components/opportunities/OpportunityCard';
 import { CardSkeleton } from '@/components/common/Skeleton';
@@ -83,17 +83,53 @@ export const Opportunities: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
-      {/* Page Title */}
-      <div className="mb-8">
-        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue uppercase tracking-wider mb-1">
-          <Compass className="w-4 h-4" /> Real-time Opportunity Directory
+      {/* Hero Showcase Banner with Background Imagery */}
+      <div className="relative rounded-3xl overflow-hidden mb-10 border border-slate-200/80 shadow-xl bg-slate-950 text-white">
+        {/* Background Image layer with subtle zoom animation */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <img
+            src="/images/internship-student.jpg"
+            alt="Verified Student Opportunities"
+            className="w-full h-full object-cover object-center opacity-30 transform scale-105 filter blur-[0.5px]"
+          />
+          {/* Multi-gradient backdrop to ensure 100% text legibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-brand-navy/80" />
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight">
-          Verified Student Opportunities
-        </h1>
-        <p className="text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
-          Direct official links for high-impact software internships, fresher campus drives, national hackathons, scholarships, and student leadership programs.
-        </p>
+
+        <div className="relative z-10 px-6 sm:px-10 py-10 sm:py-12 max-w-4xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-cyan-300 text-xs font-bold uppercase tracking-wider mb-3 backdrop-blur-xs">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse-subtle" />
+            <Compass className="w-3.5 h-3.5" />
+            Real-Time Verified Opportunity Directory
+          </div>
+
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            Launch Your Career With <br className="hidden sm:inline" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-300 to-brand-blue">
+              Direct Official Openings
+            </span>
+          </h1>
+
+          <p className="mt-3 text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+            Every software internship, national hackathon, fresher campus drive, and scholarship is hand-verified directly from official corporate career portals and ministry notices.
+          </p>
+
+          {/* Trust Highlights */}
+          <div className="mt-6 flex flex-wrap items-center gap-3 text-xs font-semibold text-slate-300">
+            <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <span>100% Official Links</span>
+            </div>
+            <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10">
+              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span>Zero Fake Listings & Scams</span>
+            </div>
+            <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10">
+              <CheckCircle2 className="w-4 h-4 text-cyan-300" />
+              <span>{totalItems} Opportunities Available</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Filter Component with URL Sync */}

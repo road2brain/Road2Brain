@@ -35,6 +35,7 @@ import { OpportunityTypeBadge, VerificationBadge } from '@/components/common/Bad
 import { OpportunityFormModal } from '@/components/admin/OpportunityFormModal';
 import { VerificationNotesModal } from '@/components/admin/VerificationNotesModal';
 import { formatDate, isExpired } from '@/lib/utils';
+import { getOpportunityBgImage } from '@/lib/opportunityMedia';
 
 export const AdminOpportunities: React.FC = () => {
   const { currentUser } = useAuth();
@@ -227,19 +228,31 @@ export const AdminOpportunities: React.FC = () => {
                   <tr key={opp.id} className="hover:bg-slate-50/70 transition-colors">
                     {/* Title & Company */}
                     <td className="p-4">
-                      <p className="font-bold text-slate-900 text-sm max-w-xs truncate">{opp.title}</p>
-                      <div className="flex items-center gap-2 text-slate-500 mt-0.5">
-                        <span className="font-medium text-slate-700">{opp.company}</span>
-                        <span>•</span>
-                        <a
-                          href={opp.sourceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-brand-blue hover:underline inline-flex items-center gap-0.5"
-                          title="Verify source"
-                        >
-                          Source <ExternalLink className="w-2.5 h-2.5" />
-                        </a>
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg overflow-hidden shrink-0 border border-slate-200 bg-slate-950 shadow-xs">
+                          <img
+                            src={getOpportunityBgImage(opp.type, opp.backgroundImage)}
+                            alt=""
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-bold text-slate-900 text-sm max-w-xs truncate">{opp.title}</p>
+                          <div className="flex items-center gap-2 text-slate-500 mt-0.5 text-xs">
+                            <span className="font-medium text-slate-700">{opp.company}</span>
+                            <span>•</span>
+                            <a
+                              href={opp.sourceUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-brand-blue hover:underline inline-flex items-center gap-0.5"
+                              title="Verify source"
+                            >
+                              Source <ExternalLink className="w-2.5 h-2.5" />
+                            </a>
+                          </div>
+                        </div>
                       </div>
                     </td>
 

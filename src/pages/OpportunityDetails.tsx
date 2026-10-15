@@ -27,6 +27,7 @@ import { PulseHeart } from '@/components/reactbits/PulseHeart';
 import { formatDate, formatCurrency, isExpired, daysLeft } from '@/lib/utils';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import { useToast } from '@/contexts/ToastContext';
+import { getOpportunityBgImage } from '@/lib/opportunityMedia';
 
 export const OpportunityDetails: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -78,6 +79,10 @@ export const OpportunityDetails: React.FC = () => {
   const saved = isSaved(opportunity.id);
   const expired = isExpired(opportunity.deadline);
   const remainingDays = daysLeft(opportunity.deadline);
+  const bgImage = getOpportunityBgImage(opportunity.type, opportunity.backgroundImage);
+  const initialLikes = Math.floor(
+    (opportunity.id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0) * 11) % 480 + 35
+  );
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -86,36 +91,94 @@ export const OpportunityDetails: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
-      {/* Back button */}
-      <div className="mb-6">
-        <Link to="/opportunities" className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-brand-blue transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back to all opportunities
-        </Link>
-      </div>
+      {/* Category Hero Banner with Background Image */}
+      <div className="relative rounded-3xl overflow-hidden mb-8 min-h-[220px] sm:min-h-[280px] bg-slate-950 border border-slate-200/80 shadow-xl group">
+        <img
+          src={bgImage}
+          alt={opportunity.title}
+          className="absolute inset-0 w-full h-full object-cover object-center transform transition-transform duration-700 ease-out group-hover:scale-105 brightness-[0.82]"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/images/internship-student.jpg';
+          }}
+        />
+        {/* Layered gradients to guarantee high contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-black/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/40 to-transparent pointer-events-none" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main Content Area */}
-        <div className="lg:col-span-2 space-y-8">
-          {/* Header Card */}
-          <Card className="p-6 sm:p-8">
-            <div className="flex flex-wrap items-center gap-2 mb-4">
+        {/* Top Controls: Back button + Share + Save */}
+        <div className="relative z-10 p-5 sm:p-6 flex items-center justify-between gap-2">
+          <Link
+            to="/opportunities"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-semibold hover:bg-black/80 transition-colors shadow-sm"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" /> Back to opportunities
+          </Link>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleShare}
+              className="p-2.5 rounded-xl bg-white/95 backdrop-blur-md text-slate-700 hover:text-slate-900 border border-white/80 shadow-xs transition-colors"
+              title="Share link"
+              aria-label="Share opportunity link"
+            >
+              <Share2 className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={() => toggleBookmark(opportunity.id, 'opportunity')}
+              className={`p-2.5 rounded-xl backdrop-blur-md border shadow-xs transition-colors ${
+                saved
+                  ? 'bg-blue-600 text-white border-blue-500'
+                  : 'bg-white/95 text-slate-700 hover:text-slate-900 border-white/80'
+              }`}
+              title={saved ? 'Saved in your dashboard' : 'Save to dashboard'}
+              aria-label={saved ? 'Remove bookmark' : 'Bookmark opportunity'}
+            >
+              <BookmarkIcon className={`w-4 h-4 ${saved ? 'fill-current' : ''}`} />
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom Banner Content */}
+        <div className="relative z-10 px-5 sm:px-8 pb-6 pt-10 sm:pt-14 flex flex-col sm:flex-row sm:items-end justify-between gap-4 text-white">
+          <div className="max-w-3xl">
+            <div className="flex flex-wrap items-center gap-2 mb-2.5">
               <OpportunityTypeBadge type={opportunity.type} />
               <VerificationBadge status={opportunity.verificationStatus} verifiedAt={opportunity.verifiedAt} showDate />
               <LocationBadge type={opportunity.locationType} location={opportunity.location} />
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2 leading-tight">
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-white leading-tight drop-shadow-md">
               {opportunity.title}
             </h1>
 
-            <div className="flex items-center gap-2 text-sm font-semibold text-slate-600 mb-6">
-              <Building className="w-4 h-4 text-slate-400 shrink-0" />
-              <span>{opportunity.company}</span>
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-200 mt-2.5">
+              <Building className="w-4 h-4 text-cyan-300 shrink-0" />
+              <span className="text-white font-bold">{opportunity.company}</span>
               <span>•</span>
-              <span className="text-slate-500 font-normal">{opportunity.category}</span>
+              <span className="text-cyan-200">{opportunity.category}</span>
             </div>
+          </div>
 
-            {/* Quick Stipend & Deadline Bar */}
+          <div className="self-start sm:self-end bg-white/95 backdrop-blur-md p-1.5 rounded-2xl shadow-sm border border-white/80 shrink-0">
+            <PulseHeart
+              count={initialLikes}
+              size={32}
+              corner={10}
+              likedColor="#ff4d6d"
+              idleColor="#94a3b8"
+              pillColor="#FFFFFF"
+              textColor="#1e293b"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Main Content Area */}
+        <div className="lg:col-span-2 space-y-8">
+          {/* Quick Stipend & Deadline Bar */}
+          <Card className="p-6 sm:p-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs">
               <div>
                 <span className="text-slate-400 font-semibold block uppercase tracking-wider text-[10px] mb-0.5">

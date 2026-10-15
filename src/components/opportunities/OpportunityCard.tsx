@@ -8,6 +8,7 @@ import { Button } from '@/components/common/Button';
 import { PulseHeart } from '@/components/reactbits/PulseHeart';
 import { formatDate, formatCurrency, isExpired, isUpcomingDeadline, daysLeft } from '@/lib/utils';
 import { useBookmarks } from '@/hooks/useBookmarks';
+import { getOpportunityBgImage } from '@/lib/opportunityMedia';
 
 interface OpportunityCardProps {
   opportunity: Opportunity;
@@ -42,6 +43,7 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
   const upcoming = isUpcomingDeadline(opportunity.deadline, 7);
   const remainingDays = daysLeft(opportunity.deadline);
   const { initials, bg, text } = getCompanyInitials(opportunity.company);
+  const bgImage = getOpportunityBgImage(opportunity.type, opportunity.backgroundImage);
 
   // Deterministic seed count for live student likes
   const initialLikes = Math.floor(
@@ -65,66 +67,88 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-blue via-brand-teal to-brand-violet opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" />
 
       <div>
-        {/* Top Bar: Company Monogram + Category + PulseHeart + Bookmark */}
-        <div className="flex items-start justify-between gap-2 mb-3.5">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className={`w-10 h-10 rounded-xl border flex items-center justify-center font-bold text-xs shrink-0 shadow-xs transition-transform group-hover:scale-105 ${bg} ${text}`}>
-              {initials}
-            </div>
-            <div className="min-w-0">
-              <span className="text-xs font-bold text-slate-800 truncate block">
-                {opportunity.company}
-              </span>
-              <span className="text-[11px] text-slate-400 font-medium truncate block">
+        {/* Background Visual Banner */}
+        <div className="relative -mx-6 -mt-6 mb-3.5 h-32 overflow-hidden bg-slate-950">
+          <img
+            src={bgImage}
+            alt={opportunity.title}
+            className="w-full h-full object-cover object-center transform transition-transform duration-700 ease-out group-hover:scale-108 brightness-[0.88]"
+            loading="lazy"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/images/internship-student.jpg';
+            }}
+          />
+          {/* Subtle multi-layer gradient overlay for high contrast */}
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-slate-950/25 to-black/50 pointer-events-none" />
+
+          {/* Top Banner Controls: Category Tag + PulseHeart + Bookmark */}
+          <div className="absolute top-2.5 left-3 right-3 flex items-center justify-between gap-2 z-10">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-white shadow-xs max-w-[170px] truncate">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse-subtle shrink-0" />
+              <span className="text-[10px] font-bold uppercase tracking-wider truncate">
                 {opportunity.category}
               </span>
             </div>
+
+            <div className="flex items-center gap-1 shrink-0 bg-white/95 backdrop-blur-md p-1 rounded-xl shadow-xs border border-white/80">
+              {/* React Bits PulseHeart Like Feature */}
+              <PulseHeart
+                count={initialLikes}
+                size={28}
+                corner={8}
+                likedColor="#ff4d6d"
+                idleColor="#94a3b8"
+                pillColor="#FFFFFF"
+                textColor="#1e293b"
+              />
+
+              <button
+                onClick={handleBookmarkClick}
+                className={`p-1.5 rounded-lg transition-all duration-200 shrink-0 ${
+                  saved
+                    ? 'bg-blue-50 text-brand-blue ring-1 ring-blue-200'
+                    : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
+                }`}
+                aria-label={saved ? 'Remove bookmark' : 'Bookmark opportunity'}
+                title={saved ? 'Saved in your dashboard' : 'Save to dashboard'}
+              >
+                <BookmarkIcon className={`w-3.5 h-3.5 ${saved ? 'fill-current' : ''}`} />
+              </button>
+            </div>
           </div>
 
-          <div className="flex items-center gap-1.5 shrink-0">
-            {/* React Bits PulseHeart Like Feature */}
-            <PulseHeart
-              count={initialLikes}
-              size={32}
-              corner={12}
-              likedColor="#ff4d6d"
-              idleColor="#94a3b8"
-              pillColor="#F8FAFC"
-              textColor="#334155"
-            />
-
-            <button
-              onClick={handleBookmarkClick}
-              className={`p-1.5 rounded-xl transition-all duration-200 shrink-0 ${
-                saved
-                  ? 'bg-blue-50 text-brand-blue ring-1 ring-blue-200'
-                  : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
-              }`}
-              aria-label={saved ? 'Remove bookmark' : 'Bookmark opportunity'}
-              title={saved ? 'Saved in your dashboard' : 'Save to dashboard'}
-            >
-              <BookmarkIcon className={`w-4 h-4 ${saved ? 'fill-current' : ''}`} />
-            </button>
+          {/* Overlapping Company Monogram at bottom-left of banner */}
+          <div className="absolute -bottom-2 left-4 z-10 flex items-center gap-2">
+            <div className={`w-11 h-11 rounded-xl border-2 border-white flex items-center justify-center font-extrabold text-xs shrink-0 shadow-md transition-transform group-hover:scale-105 ${bg} ${text}`}>
+              {initials}
+            </div>
           </div>
         </div>
 
+        {/* Company Header Row below banner */}
+        <div className="flex items-center justify-between gap-2 mt-4 mb-2">
+          <span className="text-xs font-bold text-slate-800 truncate block">
+            {opportunity.company}
+          </span>
+          <OpportunityTypeBadge type={opportunity.type} />
+        </div>
+
         {/* Title */}
-        <Link to={`/opportunities/${opportunity.slug}`} className="block group-hover:text-brand-blue transition-colors mb-3">
+        <Link to={`/opportunities/${opportunity.slug}`} className="block group-hover:text-brand-blue transition-colors mb-2.5">
           <h3 className="text-base font-bold text-slate-900 leading-snug line-clamp-2">
             {opportunity.title}
           </h3>
         </Link>
 
-        {/* Badges row: Type + Verification + Work mode */}
-        <div className="flex flex-wrap items-center gap-1.5 mb-3.5">
-          <OpportunityTypeBadge type={opportunity.type} />
+        {/* Badges row: Verification + Work mode */}
+        <div className="flex flex-wrap items-center gap-1.5 mb-3">
           <VerificationBadge status={opportunity.verificationStatus} />
           <LocationBadge type={opportunity.locationType} location={opportunity.location} />
         </div>
 
         {/* Stipend / Value pill */}
         {(opportunity.stipendMin !== undefined || opportunity.stipendMax !== undefined) && (
-          <div className="mb-3.5">
+          <div className="mb-3">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50/80 px-2.5 py-1 rounded-lg border border-emerald-200/70">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse-subtle" />
               {opportunity.stipendMin === 0 && opportunity.stipendMax === 0 ? (

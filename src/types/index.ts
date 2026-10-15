@@ -55,6 +55,7 @@ export interface Opportunity {
   verifiedAt?: string;
   verifiedBy?: string;
   adminNotes?: string;
+  backgroundImage?: string;
   createdAt: string;
   updatedAt: string;
 }

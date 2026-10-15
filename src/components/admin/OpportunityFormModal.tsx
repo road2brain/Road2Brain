@@ -6,6 +6,7 @@ import { Select } from '@/components/common/Select';
 import { Button } from '@/components/common/Button';
 import { isValidUrl } from '@/lib/utils';
 import { useToast } from '@/contexts/ToastContext';
+import { getOpportunityBgImage } from '@/lib/opportunityMedia';
 
 interface OpportunityFormModalProps {
   isOpen: boolean;
@@ -39,6 +40,7 @@ export const OpportunityFormModal: React.FC<OpportunityFormModalProps> = ({
   const [applicationUrl, setApplicationUrl] = useState('');
   const [sourceUrl, setSourceUrl] = useState('');
   const [deadline, setDeadline] = useState('');
+  const [backgroundImage, setBackgroundImage] = useState('');
 
   useEffect(() => {
     if (initialData) {
@@ -58,6 +60,7 @@ export const OpportunityFormModal: React.FC<OpportunityFormModalProps> = ({
       setApplicationUrl(initialData.applicationUrl);
       setSourceUrl(initialData.sourceUrl);
       setDeadline(initialData.deadline);
+      setBackgroundImage(initialData.backgroundImage || '');
     } else {
       // Default reset
       setTitle('');
@@ -76,6 +79,7 @@ export const OpportunityFormModal: React.FC<OpportunityFormModalProps> = ({
       setApplicationUrl('');
       setSourceUrl('');
       setDeadline(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
+      setBackgroundImage('');
     }
   }, [initialData, isOpen]);
 
@@ -123,6 +127,7 @@ export const OpportunityFormModal: React.FC<OpportunityFormModalProps> = ({
         applicationUrl,
         sourceUrl,
         deadline,
+        backgroundImage: backgroundImage.trim() || undefined,
       });
       onClose();
     } catch (err: any) {
@@ -304,6 +309,33 @@ export const OpportunityFormModal: React.FC<OpportunityFormModalProps> = ({
             value={description}
             onChange={e => setDescription(e.target.value)}
           />
+        </div>
+
+        {/* Custom Background Image & Category Banner Preview */}
+        <div>
+          <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+            Opportunity Background Banner (Optional Image URL)
+          </label>
+          <Input
+            placeholder="Leave empty for category default 3D art, or enter custom URL (/images/...)"
+            value={backgroundImage}
+            onChange={e => setBackgroundImage(e.target.value)}
+          />
+          <div className="mt-2 relative h-20 rounded-xl overflow-hidden border border-slate-200 bg-slate-950 flex items-center justify-between px-4">
+            <img
+              src={getOpportunityBgImage(type, backgroundImage)}
+              alt="Banner preview"
+              className="absolute inset-0 w-full h-full object-cover opacity-60"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/60 to-transparent" />
+            <span className="relative z-10 text-xs font-bold text-white flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse-subtle" />
+              Active Theme: {type}
+            </span>
+            <span className="relative z-10 text-[10px] text-slate-300 font-mono bg-black/60 px-2 py-0.5 rounded border border-white/10">
+              {backgroundImage ? 'Custom Image' : 'Default Category 3D Art'}
+            </span>
+          </div>
         </div>
 
         <div className="pt-3 border-t border-slate-100 flex justify-end gap-2.5">

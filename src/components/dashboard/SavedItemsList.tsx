@@ -6,6 +6,7 @@ import { Card } from '@/components/common/Card';
 import { Button } from '@/components/common/Button';
 import { formatDate } from '@/lib/utils';
 import { useBookmarks } from '@/hooks/useBookmarks';
+import { getOpportunityBgImage } from '@/lib/opportunityMedia';
 
 interface SavedItemsListProps {
   bookmarks: BookmarkType[];
@@ -68,14 +69,24 @@ export const SavedItemsList: React.FC<SavedItemsListProps> = ({
           <div className="divide-y divide-slate-100">
             {savedOpps.map(opp => (
               <div key={opp.id} className="py-3.5 flex items-center justify-between gap-3 first:pt-0 last:pb-0">
-                <div className="min-w-0 flex-1">
-                  <Link to={`/opportunities/${opp.slug}`} className="text-sm font-bold text-slate-900 hover:text-brand-blue truncate block">
-                    {opp.title}
-                  </Link>
-                  <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
-                    <span className="font-semibold text-slate-700">{opp.company}</span>
-                    <span>•</span>
-                    <span>Deadline: {formatDate(opp.deadline)}</span>
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  <div className="w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-slate-200/80 bg-slate-900 shadow-xs">
+                    <img
+                      src={getOpportunityBgImage(opp.type, opp.backgroundImage)}
+                      alt=""
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <Link to={`/opportunities/${opp.slug}`} className="text-sm font-bold text-slate-900 hover:text-brand-blue truncate block">
+                      {opp.title}
+                    </Link>
+                    <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
+                      <span className="font-semibold text-slate-700">{opp.company}</span>
+                      <span>•</span>
+                      <span>Deadline: {formatDate(opp.deadline)}</span>
+                    </div>
                   </div>
                 </div>
 
