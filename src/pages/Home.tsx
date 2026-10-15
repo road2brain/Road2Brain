@@ -12,7 +12,8 @@ import {
   Sparkles,
   Search,
   Star,
-  Users
+  Users,
+  Award
 } from 'lucide-react';
 import { FaGoogle, FaApple, FaMicrosoft, FaAmazon, FaUber } from 'react-icons/fa6';
 import { SiNvidia, SiMeta, SiCisco } from 'react-icons/si';
@@ -361,8 +362,9 @@ export const Home: React.FC = () => {
                   Click here to shuffle pixels and reveal upcoming high-stipend summer drives and student hackathon grants.
                 </p>
               </div>
-              <div className="px-6 py-3 rounded-2xl bg-brand-blue hover:bg-blue-600 font-extrabold text-sm text-white shrink-0 shadow-lg shadow-blue-500/30 transition-transform active:scale-95">
-                Click to Reveal Perk ✨
+              <div className="px-6 py-3 rounded-2xl bg-brand-blue hover:bg-blue-600 font-extrabold text-sm text-white shrink-0 shadow-lg shadow-blue-500/30 transition-transform active:scale-95 flex items-center gap-1.5">
+                <span>Click to Reveal Perk</span>
+                <Sparkles className="w-4 h-4 ml-0.5" />
               </div>
             </div>
           }
@@ -370,7 +372,7 @@ export const Home: React.FC = () => {
             <div className="p-7 sm:p-10 rounded-3xl bg-gradient-to-r from-blue-950 via-indigo-950 to-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 border border-blue-500 shadow-elevated">
               <div className="space-y-2 text-center sm:text-left">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
-                  🎉 Unlocked Exclusive Drives
+                  <Award className="w-3.5 h-3.5" /> Unlocked Exclusive Drives
                 </span>
                 <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white">
                   Google Summer of Code, Amazon WOW & Smart India Hackathon
@@ -381,9 +383,10 @@ export const Home: React.FC = () => {
               </div>
               <Link
                 to="/opportunities"
-                className="px-6 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-600 font-extrabold text-sm text-white shrink-0 shadow-lg shadow-emerald-500/30 transition-transform active:scale-95"
+                className="px-6 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-600 font-extrabold text-sm text-white shrink-0 shadow-lg shadow-emerald-500/30 transition-transform active:scale-95 flex items-center gap-1.5"
               >
-                Explore Listings Now 🚀
+                <span>Explore Listings Now</span>
+                <ArrowRight className="w-4 h-4 ml-0.5" />
               </Link>
             </div>
           }

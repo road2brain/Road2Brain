@@ -52,7 +52,7 @@ export function useRoadmapProgress(roadmapId?: string) {
       });
 
       if (newState) {
-        showToast('Milestone completed! Keep moving forward.', 'success', 'Milestone Completed 🎯');
+        showToast('Milestone completed! Keep moving forward.', 'success', 'Milestone Completed');
       } else {
         showToast('Milestone unmarked.', 'info');
       }

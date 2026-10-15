@@ -57,7 +57,7 @@ export const Signup: React.FC = () => {
         skills: ['Data Structures', 'Python', 'C++'],
         interests: [targetCareerTrack],
       });
-      showToast('Your student account has been created! Welcome to Road 2 Brain.', 'success', 'Account Created 🎉');
+      showToast('Your student account has been created! Welcome to Road 2 Brain.', 'success', 'Account Created');
       navigate('/dashboard');
     } catch (err: any) {
       showToast(err.message || 'Error creating account. Please try again.', 'error', 'Registration Failed');

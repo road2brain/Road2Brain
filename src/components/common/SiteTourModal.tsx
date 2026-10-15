@@ -1,8 +1,16 @@
 import React from 'react';
 import { Modal } from '@/components/common/Modal';
 import { Stepper, Step } from '@/components/reactbits/Stepper';
-import { Compass, Map, BookOpen, LayoutDashboard, ShieldCheck, Sparkles, CheckCircle2 } from 'lucide-react';
-import { Button } from '@/components/common/Button';
+import { 
+  Compass, 
+  Map, 
+  LayoutDashboard, 
+  Sparkles, 
+  CheckCircle2, 
+  Rocket, 
+  Lightbulb, 
+  GraduationCap 
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface SiteTourModalProps {
@@ -37,8 +45,9 @@ export const SiteTourModal: React.FC<SiteTourModalProps> = ({ isOpen, onClose })
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>The Engineering Career Ecosystem</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                Welcome to Road 2 Brain 🚀
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2 justify-center sm:justify-start">
+                <span>Welcome to Road 2 Brain</span>
+                <Rocket className="w-5 h-5 text-brand-blue shrink-0" />
               </h3>
               <p className="text-slate-600 text-sm leading-relaxed">
                 Road 2 Brain solves the chaos of WhatsApp groups and unverified job boards. We provide B.Tech CSE, IT, and tech students with directly verified internships, structured 4-year career milestones, and curated coursework.
@@ -107,8 +116,11 @@ export const SiteTourModal: React.FC<SiteTourModalProps> = ({ isOpen, onClose })
               <p className="text-slate-600 text-sm leading-relaxed">
                 Clear milestones mapping your college years: 1st Year (Foundations & DSA), 2nd Year (Core Dev & Systems), 3rd Year (Advanced Specialization & Internships), and 4th Year (Campus Placements & Portfolio).
               </p>
-              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600">
-                💡 <strong className="text-slate-800">Persistent Progress:</strong> Check off completed milestones as you learn, and your progress automatically syncs to your personal dashboard.
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-start gap-2">
+                <Lightbulb className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-slate-800">Persistent Progress:</strong> Check off completed milestones as you learn, and your progress automatically syncs to your personal dashboard.
+                </div>
               </div>
             </div>
           </Step>
@@ -131,7 +143,7 @@ export const SiteTourModal: React.FC<SiteTourModalProps> = ({ isOpen, onClose })
                 Access your bookmarked opportunities, monitor upcoming deadlines closing soon, and get deterministic matches tailored to your branch (CSE, IT, AI/DS, ECE) and skills.
               </p>
               <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 font-semibold flex items-center gap-3">
-                <span className="text-xl">🎓</span>
+                <GraduationCap className="w-6 h-6 text-emerald-600 shrink-0" />
                 <span>You are ready to launch your career preparation!</span>
               </div>
             </div>
