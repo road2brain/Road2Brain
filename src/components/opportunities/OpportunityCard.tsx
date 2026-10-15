@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, Bookmark as BookmarkIcon, ExternalLink, ArrowRight, Building2, Clock, CheckCircle2 } from 'lucide-react';
+import { Bookmark as BookmarkIcon, ArrowRight, Clock } from 'lucide-react';
 import { Opportunity } from '@/types';
 import { Card } from '@/components/common/Card';
 import { OpportunityTypeBadge, VerificationBadge, LocationBadge } from '@/components/common/Badge';
@@ -49,9 +49,14 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
   };
 
   return (
-    <Card className="flex flex-col justify-between h-full group hover:border-brand-blue/50 hover:shadow-card-hover transition-all duration-300 relative overflow-hidden bg-white">
+    <Card 
+      spotlight
+      spotlightColor="rgba(37, 99, 235, 0.08)"
+      borderColor="rgba(37, 99, 235, 0.35)"
+      className="flex flex-col justify-between h-full group hover:border-brand-blue/50 hover:shadow-card-hover transition-all duration-300 relative overflow-hidden bg-white"
+    >
       {/* Subtle top accent gradient line on hover */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-blue via-brand-teal to-brand-violet opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-blue via-brand-teal to-brand-violet opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" />
 
       <div>
         {/* Top Bar: Company Monogram + Category + Bookmark */}

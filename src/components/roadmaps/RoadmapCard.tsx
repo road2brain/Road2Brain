@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, Layers, Users, Sparkles, Map } from 'lucide-react';
+import { ArrowRight, Layers, Users } from 'lucide-react';
 import { Roadmap } from '@/types';
 import { Card } from '@/components/common/Card';
-import { Badge } from '@/components/common/Badge';
 import { Button } from '@/components/common/Button';
 
 interface RoadmapCardProps {
@@ -19,6 +18,8 @@ export const RoadmapCard: React.FC<RoadmapCardProps> = ({ roadmap }) => {
         accent: 'from-brand-teal via-blue-500 to-brand-violet',
         badge: 'bg-teal-50 text-brand-teal border-teal-200',
         iconBg: 'bg-teal-50 text-brand-teal',
+        spotlight: 'rgba(20, 184, 166, 0.10)',
+        border: 'rgba(20, 184, 166, 0.4)',
       };
     }
     if (id.includes('data')) {
@@ -26,21 +27,32 @@ export const RoadmapCard: React.FC<RoadmapCardProps> = ({ roadmap }) => {
         accent: 'from-amber-500 via-orange-500 to-rose-500',
         badge: 'bg-amber-50 text-amber-800 border-amber-200',
         iconBg: 'bg-amber-50 text-amber-700',
+        spotlight: 'rgba(245, 158, 11, 0.10)',
+        border: 'rgba(245, 158, 11, 0.4)',
       };
     }
     return {
       accent: 'from-brand-blue via-indigo-600 to-brand-violet',
       badge: 'bg-blue-50 text-brand-blue border-blue-200',
       iconBg: 'bg-blue-50 text-brand-blue',
+      spotlight: 'rgba(37, 99, 235, 0.10)',
+      border: 'rgba(37, 99, 235, 0.4)',
     };
   };
 
   const theme = getTheme(roadmap.id);
 
   return (
-    <Card className="flex flex-col justify-between h-full group hover:border-slate-300 hover:shadow-card-hover transition-all duration-300 relative overflow-hidden bg-white">
+    <Card 
+      tilt
+      maxTilt={6}
+      scale={1.015}
+      spotlightColor={theme.spotlight}
+      borderColor={theme.border}
+      className="flex flex-col justify-between h-full group hover:border-slate-300 hover:shadow-card-hover transition-all duration-300 relative overflow-hidden bg-white"
+    >
       {/* Top accent gradient bar */}
-      <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${theme.accent}`} />
+      <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${theme.accent} z-20 pointer-events-none`} />
 
       <div>
         {/* Top Badges */}

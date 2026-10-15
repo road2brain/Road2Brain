@@ -1,9 +1,7 @@
 import React from 'react';
-import { ExternalLink, Bookmark as BookmarkIcon, Award, Clock, BookOpen, GraduationCap } from 'lucide-react';
+import { ExternalLink, Bookmark as BookmarkIcon, Award, Clock, GraduationCap } from 'lucide-react';
 import { Course } from '@/types';
 import { Card } from '@/components/common/Card';
-import { Badge } from '@/components/common/Badge';
-import { Button } from '@/components/common/Button';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import { useBookmarks } from '@/hooks/useBookmarks';
 
@@ -21,9 +19,14 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   };
 
   return (
-    <Card className="flex flex-col justify-between h-full group hover:border-brand-teal/50 hover:shadow-card-hover transition-all duration-300 relative overflow-hidden bg-white">
+    <Card 
+      spotlight
+      spotlightColor="rgba(20, 184, 166, 0.08)"
+      borderColor="rgba(20, 184, 166, 0.35)"
+      className="flex flex-col justify-between h-full group hover:border-brand-teal/50 hover:shadow-card-hover transition-all duration-300 relative overflow-hidden bg-white"
+    >
       {/* Top accent gradient line */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-teal to-brand-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-teal to-brand-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" />
 
       <div>
         {/* Top Badges & Bookmark */}
