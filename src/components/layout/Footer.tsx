@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
   return (
     <footer className="relative bg-brand-navy text-slate-300 border-t border-slate-800 overflow-hidden">
       {/* React Bits GridScan Interactive Radar Background */}
-      <div className="absolute inset-0 opacity-30 pointer-events-none">
+      <div className="absolute inset-0 opacity-25 pointer-events-none">
         <GridScan
           linesColor="#4d4757"
           scanColor="#7dd3fc"
@@ -17,6 +17,15 @@ export const Footer: React.FC = () => {
           scanDuration={2.4}
           scanDelay={1.6}
           clickEffect="ping"
+        />
+      </div>
+
+      {/* Large Glowing Logo Watermark in Footer Background */}
+      <div className="absolute -right-16 -bottom-10 sm:right-6 sm:-bottom-8 pointer-events-none select-none opacity-[0.08] transition-opacity">
+        <img
+          src="/logo.png"
+          alt=""
+          className="w-[400px] sm:w-[580px] max-w-none object-contain filter invert brightness-150"
         />
       </div>
 
