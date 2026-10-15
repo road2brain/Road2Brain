@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BrandLogo } from '@/components/common/BrandLogo';
-import { ShieldCheck, Heart } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -120,12 +120,8 @@ export const Footer: React.FC = () => {
         {/* Bottom bar */}
         <div className="pt-8 mt-12 border-t border-slate-200/90 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} Road 2 Brain. All rights reserved. Built for engineering students in India.</p>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 font-medium">
             <span>Learn. Build. Grow.</span>
-            <span>•</span>
-            <span className="flex items-center gap-1">
-              Made with <Heart className="w-3.5 h-3.5 text-rose-500 fill-current" /> for tech students
-            </span>
           </div>
         </div>
       </div>

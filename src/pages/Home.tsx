@@ -13,7 +13,11 @@ import {
   Search,
   Star,
   Users,
-  Award
+  Award,
+  Briefcase,
+  Trophy,
+  GraduationCap,
+  CheckCircle2
 } from 'lucide-react';
 import { FaGoogle, FaApple, FaMicrosoft, FaAmazon, FaUber } from 'react-icons/fa6';
 import { SiNvidia, SiMeta, SiCisco } from 'react-icons/si';
@@ -38,7 +42,8 @@ import { Opportunity, Course, Roadmap } from '@/types';
 export const Home: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
+  const [internships, setInternships] = useState<Opportunity[]>([]);
+  const [hackathons, setHackathons] = useState<Opportunity[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
   const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -46,7 +51,8 @@ export const Home: React.FC = () => {
   const [userRating, setUserRating] = useState(5);
 
   useEffect(() => {
-    fetchOpportunities().then(list => setOpportunities(list.slice(0, 3)));
+    fetchOpportunities({ type: 'internship' }).then(list => setInternships(list.slice(0, 3)));
+    fetchOpportunities({ type: 'hackathon' }).then(list => setHackathons(list.slice(0, 3)));
     fetchCourses().then(list => setCourses(list.slice(0, 3)));
     fetchRoadmaps().then(list => setRoadmaps(list.slice(0, 3)));
 
@@ -317,36 +323,133 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. FEATURED OPPORTUNITIES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-          <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue uppercase tracking-wider mb-1">
-              <Compass className="w-4 h-4" /> Latest Active Drives
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy">
-              Featured Verified Opportunities
-            </h2>
-            <p className="text-sm text-slate-500 mt-1">
-              High-value engineering internships, student programs, and tech competitions closing soon.
-            </p>
+      {/* 3. TECH INTERNSHIPS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        {/* Animated Feature Banner */}
+        <div className="relative rounded-3xl overflow-hidden border border-blue-900/30 shadow-elevated bg-slate-950 text-white min-h-[280px] sm:min-h-[320px] flex items-center">
+          {/* Animated Background Image: Student working on laptop */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <img
+              src="/images/internship-student.jpg"
+              alt="Tech student coding on laptop"
+              className="w-full h-full object-cover object-center sm:object-right animate-ken-burns opacity-75 sm:opacity-85 filter brightness-95"
+            />
+            {/* Multi-stage directional gradient overlay for flawless readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent sm:w-3/4" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+            <div className="absolute inset-0 bg-blue-950/20 mix-blend-overlay" />
           </div>
 
-          <Link to="/opportunities">
-            <Button variant="outline" rightIcon={<ArrowRight className="w-4 h-4" />}>
-              View All 30+ Opportunities
-            </Button>
-          </Link>
+          {/* Banner Content */}
+          <div className="relative z-10 p-6 sm:p-10 lg:p-12 max-w-2xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/20 backdrop-blur-md border border-blue-400/30 text-blue-300 text-xs font-bold animate-badge-float">
+              <Briefcase className="w-3.5 h-3.5 text-blue-400" />
+              <span>Verified Tech Internships</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse ml-0.5" />
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
+              Work at Global Tech MNCs & High-Growth Startups
+            </h2>
+
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+              100% manually verified summer internships and campus hiring drives with transparent stipends up to ₹1,20,000/month. No third-party spam or paid forms.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs font-semibold text-slate-300">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Direct Official Portals
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">
+                <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" /> Disclosed Stipends
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">
+                <CheckCircle2 className="w-3.5 h-3.5 text-purple-400" /> 2026-2028 Batches
+              </span>
+            </div>
+
+            <div className="pt-2 flex items-center gap-4">
+              <Link to="/opportunities?type=internship">
+                <Button variant="primary" size="md" className="rounded-xl shadow-lg shadow-blue-500/25" rightIcon={<ArrowRight className="w-4 h-4" />}>
+                  Explore All Internships
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {opportunities.map((opp) => (
+        {/* Real Internship Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
+          {internships.map((opp) => (
             <OpportunityCard key={opp.id} opportunity={opp} />
           ))}
         </div>
       </section>
 
-      {/* 4. INTERACTIVE PIXEL SWAP REVEAL CARD */}
+      {/* 4. NATIONAL HACKATHONS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        {/* Animated Feature Banner */}
+        <div className="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-elevated bg-slate-950 text-white min-h-[280px] sm:min-h-[320px] flex items-center">
+          {/* Animated Background Image: Student celebrating with trophy */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <img
+              src="/images/hackathon-student.jpg"
+              alt="Student celebrating hackathon victory with trophy"
+              className="w-full h-full object-cover object-center sm:object-right animate-ken-burns opacity-75 sm:opacity-85 filter brightness-95"
+            />
+            {/* Multi-stage directional gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent sm:w-3/4" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+            <div className="absolute inset-0 bg-amber-950/20 mix-blend-overlay" />
+          </div>
+
+          {/* Banner Content */}
+          <div className="relative z-10 p-6 sm:p-10 lg:p-12 max-w-2xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-400/30 text-amber-300 text-xs font-bold animate-badge-float">
+              <Trophy className="w-3.5 h-3.5 text-amber-400" />
+              <span>National & Global Hackathons</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse ml-0.5" />
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
+              Build Real Software, Win Cash Grants & Secure PPIs
+            </h2>
+
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+              Compete in flagship challenges like Smart India Hackathon, Flipkart GRiD, and Microsoft Imagine Cup. Showcase prototypes, solve industry challenges, and earn direct interview fast-tracks.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs font-semibold text-slate-300">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">
+                <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" /> ₹1 Crore+ Total Prize Pools
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Pre-Placement Interviews (PPI)
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">
+                <CheckCircle2 className="w-3.5 h-3.5 text-sky-400" /> 100% Free Team Entries
+              </span>
+            </div>
+
+            <div className="pt-2 flex items-center gap-4">
+              <Link to="/opportunities?type=hackathon">
+                <Button variant="primary" size="md" className="rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black shadow-lg shadow-amber-500/25" rightIcon={<ArrowRight className="w-4 h-4" />}>
+                  Explore All Hackathons
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Real Hackathon Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
+          {hackathons.map((opp) => (
+            <OpportunityCard key={opp.id} opportunity={opp} />
+          ))}
+        </div>
+      </section>
+
+      {/* 5. INTERACTIVE PIXEL SWAP REVEAL CARD */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <PixelSwap
           firstContent={
@@ -396,7 +499,7 @@ export const Home: React.FC = () => {
         />
       </section>
 
-      {/* 5. 4-YEAR CAREER ROADMAPS */}
+      {/* 6. 4-YEAR CAREER ROADMAPS */}
       <section className="bg-slate-100/70 py-16 border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
@@ -427,29 +530,63 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 6. CURATED COURSES PREVIEW */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-          <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-teal uppercase tracking-wider mb-1">
-              <BookOpen className="w-4 h-4" /> Essential Technical Skills
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy">
-              Curated Free & Affordable Courses
-            </h2>
-            <p className="text-sm text-slate-500 mt-1">
-              World-class coursework from Harvard, DeepLearning.AI, MIT, and freeCodeCamp with verified certificates.
-            </p>
+      {/* 7. CURATED TECHNICAL COURSES */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        {/* Animated Feature Banner */}
+        <div className="relative rounded-3xl overflow-hidden border border-teal-500/30 shadow-elevated bg-slate-950 text-white min-h-[280px] sm:min-h-[320px] flex items-center">
+          {/* Animated Background Image: Student listening to teacher at digital board */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <img
+              src="/images/course-student.jpg"
+              alt="Student listening to teacher explaining computer science"
+              className="w-full h-full object-cover object-center sm:object-right animate-ken-burns opacity-75 sm:opacity-85 filter brightness-95"
+            />
+            {/* Multi-stage directional gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent sm:w-3/4" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+            <div className="absolute inset-0 bg-teal-950/20 mix-blend-overlay" />
           </div>
 
-          <Link to="/courses">
-            <Button variant="outline" rightIcon={<ArrowRight className="w-4 h-4" />}>
-              Explore Course Directory
-            </Button>
-          </Link>
+          {/* Banner Content */}
+          <div className="relative z-10 p-6 sm:p-10 lg:p-12 max-w-2xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-500/20 backdrop-blur-md border border-teal-400/30 text-teal-300 text-xs font-bold animate-badge-float">
+              <GraduationCap className="w-3.5 h-3.5 text-teal-400" />
+              <span>Curated University & Free Courses</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse ml-0.5" />
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
+              Master Computer Science from World-Class Faculty
+            </h2>
+
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+              High-impact, verified courses from Harvard, MIT, Stanford, and freeCodeCamp. Learn Data Structures, Algorithms, System Design, and Modern AI without paying for overpriced bootcamps.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs font-semibold text-slate-300">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">
+                <CheckCircle2 className="w-3.5 h-3.5 text-teal-400" /> 100% Free Access
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Verified Certificate Paths
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">
+                <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" /> Complete Video Lectures & Labs
+              </span>
+            </div>
+
+            <div className="pt-2 flex items-center gap-4">
+              <Link to="/courses">
+                <Button variant="primary" size="md" className="rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold shadow-lg shadow-teal-600/25" rightIcon={<ArrowRight className="w-4 h-4" />}>
+                  Explore Full Course Catalog
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Real Course Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
           {courses.map((course) => (
             <CourseCard key={course.id} course={course} />
           ))}
