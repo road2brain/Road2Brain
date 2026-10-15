@@ -9,7 +9,8 @@ import {
   ArrowLeft, 
   ShieldCheck,
   CheckCircle2,
-  Clock
+  Clock,
+  MessageSquare
 } from 'lucide-react';
 import { BrandLogo } from '@/components/common/BrandLogo';
 import { useAuth } from '@/contexts/AuthContext';
@@ -23,6 +24,7 @@ export const AdminLayout: React.FC = () => {
     { to: '/admin/courses', label: 'Course Directory', icon: <BookOpen className="w-4 h-4" /> },
     { to: '/admin/roadmaps', label: 'Career Roadmaps', icon: <Map className="w-4 h-4" /> },
     { to: '/admin/users', label: 'User Accounts', icon: <Users className="w-4 h-4" /> },
+    { to: '/admin/issues', label: 'Student Queries & Issues', icon: <MessageSquare className="w-4 h-4" /> },
   ];
 
   return (

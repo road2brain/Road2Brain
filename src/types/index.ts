@@ -142,3 +142,43 @@ export interface VerificationLog {
   notes?: string;
   createdAt: string;
 }
+
+export type IssueCategory = 
+  | 'internship_query' 
+  | 'broken_link' 
+  | 'roadmap_doubt' 
+  | 'course_issue' 
+  | 'account_support' 
+  | 'feature_request' 
+  | 'other';
+
+export type IssueStatus = 'open' | 'in_progress' | 'resolved';
+
+export interface IssueQuery {
+  id: string;
+  studentId: string;
+  studentName: string;
+  studentEmail: string;
+  category: IssueCategory;
+  subject: string;
+  description: string;
+  opportunityTitle?: string;
+  opportunityUrl?: string;
+  status: IssueStatus;
+  adminReply?: string;
+  adminRepliedAt?: string;
+  adminRepliedBy?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateIssueInput {
+  studentId: string;
+  studentName: string;
+  studentEmail: string;
+  category: IssueCategory;
+  subject: string;
+  description: string;
+  opportunityTitle?: string;
+  opportunityUrl?: string;
+}

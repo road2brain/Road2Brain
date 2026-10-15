@@ -11,7 +11,8 @@ import {
   User, 
   LogOut, 
   Sparkles,
-  ChevronDown
+  ChevronDown,
+  HelpCircle
 } from 'lucide-react';
 import { BrandLogo } from '@/components/common/BrandLogo';
 import { Button } from '@/components/common/Button';
@@ -111,6 +112,16 @@ export const Navbar: React.FC = () => {
                 <span>Site Tour</span>
               </button>
 
+              {/* Raise Issue / Support Button */}
+              <Link
+                to="/raise-issue"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200/90 hover:border-brand-blue/40 bg-white hover:bg-blue-50/50 text-xs font-bold text-slate-700 hover:text-brand-blue transition-all duration-200 shadow-xs"
+                title="Raise an issue or ask a query"
+              >
+                <HelpCircle className="w-3.5 h-3.5 text-brand-blue" />
+                <span>Raise Issue</span>
+              </Link>
+
               {currentUser ? (
                 <div className="flex items-center gap-3">
                   <Link to="/dashboard">
@@ -169,6 +180,15 @@ export const Navbar: React.FC = () => {
                         >
                           <User className="w-4 h-4 text-slate-400" />
                           Profile Settings
+                        </Link>
+
+                        <Link
+                          to="/raise-issue"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                        >
+                          <HelpCircle className="w-4 h-4 text-slate-400" />
+                          Raise Query / Help Desk
                         </Link>
 
                         <div className="border-t border-slate-100 my-1 pt-1">
@@ -248,6 +268,15 @@ export const Navbar: React.FC = () => {
                   )}
                 </NavLink>
               ))}
+
+              <Link
+                to="/raise-issue"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              >
+                <HelpCircle className="w-4 h-4 text-brand-blue" />
+                <span>Raise Issue / Query Desk</span>
+              </Link>
             </div>
 
             <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">

@@ -14,7 +14,8 @@ import {
   AlertCircle,
   Award,
   Layers,
-  GraduationCap
+  GraduationCap,
+  HelpCircle
 } from 'lucide-react';
 import { fetchOpportunityBySlug, fetchOpportunities } from '@/services/opportunities.service';
 import { Opportunity } from '@/types';
@@ -306,6 +307,25 @@ export const OpportunityDetails: React.FC = () => {
                 </div>
               )}
             </div>
+          </Card>
+
+          {/* Raise Issue / Support Desk Card */}
+          <Card className="p-5 bg-white border border-slate-200/90 text-center space-y-2.5 shadow-xs">
+            <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-slate-800">
+              <HelpCircle className="w-4 h-4 text-brand-blue" />
+              <span>Have a Query or Found an Issue?</span>
+            </div>
+            <p className="text-[11px] text-slate-500 leading-relaxed">
+              Encountered a broken portal link, closed application, or have an eligibility question regarding this drive?
+            </p>
+            <Link
+              to={`/raise-issue?oppTitle=${encodeURIComponent(opportunity.title)}&oppUrl=${encodeURIComponent(opportunity.applicationUrl)}`}
+              className="inline-block w-full pt-1"
+            >
+              <Button variant="outline" size="sm" className="w-full text-xs font-bold">
+                Raise Query to Admin Desk
+              </Button>
+            </Link>
           </Card>
         </div>
       </div>

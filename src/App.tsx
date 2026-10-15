@@ -21,6 +21,7 @@ import { Terms } from '@/pages/Terms';
 import { Login } from '@/pages/Login';
 import { Signup } from '@/pages/Signup';
 import { ForgotPassword } from '@/pages/ForgotPassword';
+import { RaiseIssue } from '@/pages/RaiseIssue';
 import { NotFound } from '@/pages/NotFound';
 
 // Protected student pages
@@ -33,6 +34,7 @@ import { AdminOpportunities } from '@/pages/admin/AdminOpportunities';
 import { AdminCourses } from '@/pages/admin/AdminCourses';
 import { AdminRoadmaps } from '@/pages/admin/AdminRoadmaps';
 import { AdminUsers } from '@/pages/admin/AdminUsers';
+import { AdminIssues } from '@/pages/admin/AdminIssues';
 
 export const App: React.FC = () => {
   return (
@@ -55,6 +57,7 @@ export const App: React.FC = () => {
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
               <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route path="raise-issue" element={<RaiseIssue />} />
 
               {/* Protected Student Routes */}
               <Route element={<StudentGuard />}>
@@ -74,6 +77,7 @@ export const App: React.FC = () => {
                 <Route path="courses" element={<AdminCourses />} />
                 <Route path="roadmaps" element={<AdminRoadmaps />} />
                 <Route path="users" element={<AdminUsers />} />
+                <Route path="issues" element={<AdminIssues />} />
               </Route>
             </Route>
           </Routes>
