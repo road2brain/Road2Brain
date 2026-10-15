@@ -15,7 +15,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   return (
     <Link to="/" className={`inline-flex items-center gap-2.5 group ${className}`} aria-label="Road 2 Brain Home">
       <img
-        src="/logo.png"
+        src={variant === 'icon' ? '/logo-emblem-clean.png' : '/logo.png'}
         alt="Road 2 Brain - Learn • Build • Grow"
         className={
           variant === 'icon' 
