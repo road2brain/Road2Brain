@@ -63,9 +63,6 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
       borderColor="rgba(37, 99, 235, 0.35)"
       className="flex flex-col justify-between h-full group hover:border-brand-blue/50 hover:shadow-card-hover transition-all duration-300 relative overflow-hidden bg-white"
     >
-      {/* Subtle top accent gradient line on hover */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-blue via-brand-teal to-brand-violet opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" />
-
       <div>
         {/* Background Visual Banner */}
         <div className="relative -mx-6 -mt-6 mb-3.5 h-32 overflow-hidden bg-slate-950">

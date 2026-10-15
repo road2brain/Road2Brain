@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Compass, Sparkles, AlertCircle, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Sparkles, AlertCircle, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { OpportunityFilters, FilterState } from '@/components/opportunities/OpportunityFilters';
 import { OpportunityCard } from '@/components/opportunities/OpportunityCard';
 import { CardSkeleton } from '@/components/common/Skeleton';
@@ -97,12 +97,6 @@ export const Opportunities: React.FC = () => {
         </div>
 
         <div className="relative z-10 px-6 sm:px-10 py-10 sm:py-12 max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-cyan-300 text-xs font-bold uppercase tracking-wider mb-3 backdrop-blur-xs">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse-subtle" />
-            <Compass className="w-3.5 h-3.5" />
-            Real-Time Verified Opportunity Directory
-          </div>
-
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
             Launch Your Career With <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-300 to-brand-blue">

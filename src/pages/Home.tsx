@@ -13,10 +13,6 @@ import {
   Search,
   Star,
   Users,
-  Award,
-  Briefcase,
-  Trophy,
-  GraduationCap,
   CheckCircle2
 } from 'lucide-react';
 import { FaGoogle, FaApple, FaMicrosoft, FaAmazon, FaUber } from 'react-icons/fa6';
@@ -59,7 +55,6 @@ export const Home: React.FC = () => {
     const ctx = gsap.context(() => {
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!prefersReducedMotion) {
-        gsap.from('.gsap-hero-badge', { opacity: 0, y: -15, duration: 0.6, ease: 'power2.out' });
         gsap.from('.gsap-hero-title', { opacity: 0, y: 25, duration: 0.8, delay: 0.1, ease: 'power3.out' });
         gsap.from('.gsap-hero-subtitle', { opacity: 0, y: 20, duration: 0.7, delay: 0.25, ease: 'power2.out' });
         gsap.from('.gsap-hero-search', { opacity: 0, y: 20, duration: 0.7, delay: 0.35, ease: 'power2.out' });
@@ -122,15 +117,6 @@ export const Home: React.FC = () => {
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[380px] bg-gradient-to-tr from-brand-blue/15 via-brand-teal/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
 
         <div className="text-center max-w-4xl mx-auto">
-          {/* Badge */}
-          <div className="gsap-hero-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200/90 text-brand-blue text-xs font-bold mb-6 shadow-sm shadow-blue-500/5 hover:border-brand-blue/40 transition-colors">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-slate-800">Learn. Build. Grow.</span>
-            <span className="text-slate-300">•</span>
-            <span className="text-brand-blue">Student Career Platform</span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          </div>
-
           {/* Headline */}
           <h1 className="gsap-hero-title text-4xl sm:text-5xl lg:text-6xl font-black text-brand-navy tracking-tight leading-[1.12] mb-6">
             Stop searching dozens of websites for{' '}
@@ -342,12 +328,6 @@ export const Home: React.FC = () => {
 
           {/* Banner Content */}
           <div className="relative z-10 p-6 sm:p-10 lg:p-12 max-w-2xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/20 backdrop-blur-md border border-blue-400/30 text-blue-300 text-xs font-bold animate-badge-float">
-              <Briefcase className="w-3.5 h-3.5 text-blue-400" />
-              <span>Verified Tech Internships</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse ml-0.5" />
-            </div>
-
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
               Work at Global Tech MNCs & High-Growth Startups
             </h2>
@@ -405,12 +385,6 @@ export const Home: React.FC = () => {
 
           {/* Banner Content */}
           <div className="relative z-10 p-6 sm:p-10 lg:p-12 max-w-2xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-400/30 text-amber-300 text-xs font-bold animate-badge-float">
-              <Trophy className="w-3.5 h-3.5 text-amber-400" />
-              <span>National & Global Hackathons</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse ml-0.5" />
-            </div>
-
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
               Build Real Software, Win Cash Grants & Secure PPIs
             </h2>
@@ -455,9 +429,6 @@ export const Home: React.FC = () => {
           firstContent={
             <div className="p-7 sm:p-10 rounded-3xl bg-gradient-to-r from-brand-navy via-slate-900 to-brand-navy text-white flex flex-col sm:flex-row items-center justify-between gap-6 border border-slate-700 shadow-elevated">
               <div className="space-y-2 text-center sm:text-left">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold">
-                  <Sparkles className="w-3.5 h-3.5" /> Interactive Campus Perk
-                </span>
                 <h3 className="text-xl sm:text-2xl font-black tracking-tight">
                   Looking for off-campus referral openings & hackathons?
                 </h3>
@@ -474,9 +445,6 @@ export const Home: React.FC = () => {
           secondContent={
             <div className="p-7 sm:p-10 rounded-3xl bg-gradient-to-r from-blue-950 via-indigo-950 to-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 border border-blue-500 shadow-elevated">
               <div className="space-y-2 text-center sm:text-left">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
-                  <Award className="w-3.5 h-3.5" /> Unlocked Exclusive Drives
-                </span>
                 <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white">
                   Google Summer of Code, Amazon WOW & Smart India Hackathon
                 </h3>
@@ -504,9 +472,6 @@ export const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-violet uppercase tracking-wider mb-1">
-                <Map className="w-4 h-4" /> Structured Curriculum
-              </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-navy">
                 4-Year Career Roadmaps
               </h2>
@@ -549,12 +514,6 @@ export const Home: React.FC = () => {
 
           {/* Banner Content */}
           <div className="relative z-10 p-6 sm:p-10 lg:p-12 max-w-2xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-500/20 backdrop-blur-md border border-teal-400/30 text-teal-300 text-xs font-bold animate-badge-float">
-              <GraduationCap className="w-3.5 h-3.5 text-teal-400" />
-              <span>Curated University & Free Courses</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse ml-0.5" />
-            </div>
-
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
               Master Computer Science from World-Class Faculty
             </h2>
