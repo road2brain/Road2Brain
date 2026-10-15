@@ -5,6 +5,7 @@ import { Opportunity } from '@/types';
 import { Card } from '@/components/common/Card';
 import { OpportunityTypeBadge, VerificationBadge, LocationBadge } from '@/components/common/Badge';
 import { Button } from '@/components/common/Button';
+import { PulseHeart } from '@/components/reactbits/PulseHeart';
 import { formatDate, formatCurrency, isExpired, isUpcomingDeadline, daysLeft } from '@/lib/utils';
 import { useBookmarks } from '@/hooks/useBookmarks';
 
@@ -42,6 +43,11 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
   const remainingDays = daysLeft(opportunity.deadline);
   const { initials, bg, text } = getCompanyInitials(opportunity.company);
 
+  // Deterministic seed count for live student likes
+  const initialLikes = Math.floor(
+    (opportunity.id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0) * 11) % 480 + 35
+  );
+
   const handleBookmarkClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -59,8 +65,8 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-blue via-brand-teal to-brand-violet opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" />
 
       <div>
-        {/* Top Bar: Company Monogram + Category + Bookmark */}
-        <div className="flex items-start justify-between gap-3 mb-3.5">
+        {/* Top Bar: Company Monogram + Category + PulseHeart + Bookmark */}
+        <div className="flex items-start justify-between gap-2 mb-3.5">
           <div className="flex items-center gap-2.5 min-w-0">
             <div className={`w-10 h-10 rounded-xl border flex items-center justify-center font-bold text-xs shrink-0 shadow-xs transition-transform group-hover:scale-105 ${bg} ${text}`}>
               {initials}
@@ -75,18 +81,31 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
             </div>
           </div>
 
-          <button
-            onClick={handleBookmarkClick}
-            className={`p-2 rounded-xl transition-all duration-200 shrink-0 ${
-              saved
-                ? 'bg-blue-50 text-brand-blue ring-1 ring-blue-200'
-                : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
-            }`}
-            aria-label={saved ? 'Remove bookmark' : 'Bookmark opportunity'}
-            title={saved ? 'Saved in your dashboard' : 'Save to dashboard'}
-          >
-            <BookmarkIcon className={`w-4 h-4 ${saved ? 'fill-current' : ''}`} />
-          </button>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* React Bits PulseHeart Like Feature */}
+            <PulseHeart
+              count={initialLikes}
+              size={32}
+              corner={12}
+              likedColor="#ff4d6d"
+              idleColor="#94a3b8"
+              pillColor="#F8FAFC"
+              textColor="#334155"
+            />
+
+            <button
+              onClick={handleBookmarkClick}
+              className={`p-1.5 rounded-xl transition-all duration-200 shrink-0 ${
+                saved
+                  ? 'bg-blue-50 text-brand-blue ring-1 ring-blue-200'
+                  : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
+              }`}
+              aria-label={saved ? 'Remove bookmark' : 'Bookmark opportunity'}
+              title={saved ? 'Saved in your dashboard' : 'Save to dashboard'}
+            >
+              <BookmarkIcon className={`w-4 h-4 ${saved ? 'fill-current' : ''}`} />
+            </button>
+          </div>
         </div>
 
         {/* Title */}

@@ -22,6 +22,7 @@ import { Button } from '@/components/common/Button';
 import { Badge, OpportunityTypeBadge, VerificationBadge, LocationBadge } from '@/components/common/Badge';
 import { Card } from '@/components/common/Card';
 import { OpportunityCard } from '@/components/opportunities/OpportunityCard';
+import { PulseHeart } from '@/components/reactbits/PulseHeart';
 import { formatDate, formatCurrency, isExpired, daysLeft } from '@/lib/utils';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import { useToast } from '@/contexts/ToastContext';
@@ -232,6 +233,17 @@ export const OpportunityDetails: React.FC = () => {
                 </Button>
               </a>
             )}
+
+            <div className="flex items-center gap-2 mb-3">
+              <PulseHeart
+                count={142}
+                size={38}
+                corner={14}
+                likedColor="#ff4d6d"
+                pillColor="#F8FAFC"
+                className="w-full justify-center py-2"
+              />
+            </div>
 
             <div className="flex gap-2">
               <Button

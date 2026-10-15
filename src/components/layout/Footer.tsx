@@ -1,18 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BrandLogo } from '@/components/common/BrandLogo';
-import { ShieldCheck, ArrowUpRight, Heart } from 'lucide-react';
+import { ShieldCheck, Heart } from 'lucide-react';
+import { GridScan } from '@/components/reactbits/GridScan';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-brand-navy text-slate-300 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <footer className="relative bg-brand-navy text-slate-300 border-t border-slate-800 overflow-hidden">
+      {/* React Bits GridScan Interactive Radar Background */}
+      <div className="absolute inset-0 opacity-30 pointer-events-none">
+        <GridScan
+          linesColor="#4d4757"
+          scanColor="#7dd3fc"
+          cells={8}
+          depth={3}
+          scanDuration={2.4}
+          scanDelay={1.6}
+          clickEffect="ping"
+        />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand info */}
           <div className="lg:col-span-2 space-y-4">
             <BrandLogo theme="dark" />
             <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
-              Road 2 Brain is a student career development startup for B.Tech CSE/IT students in India. We verify technical opportunities, curate high-impact courses, and provide structured year-wise roadmaps so you never have to search dozens of websites.
+              Road 2 Brain is a student career development platform for engineering students in India. We verify tech internships, curate high-impact courses, and provide structured 4-year roadmaps so students never have to search unverified chat groups.
             </p>
             <div className="flex items-center gap-2 text-xs text-brand-teal font-medium">
               <ShieldCheck className="w-4 h-4" />
@@ -108,11 +122,15 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Road 2 Brain. All rights reserved. Built for Indian Engineering Students.</p>
-          <p className="flex items-center gap-1">
-            Empowering students to Learn, Build, and Grow.
-          </p>
+        <div className="pt-8 mt-12 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <p>© {new Date().getFullYear()} Road 2 Brain. All rights reserved. Built for engineering students in India.</p>
+          <div className="flex items-center gap-1.5">
+            <span>Learn. Build. Grow.</span>
+            <span>•</span>
+            <span className="flex items-center gap-1">
+              Made with <Heart className="w-3.5 h-3.5 text-rose-500 fill-current" /> for tech students
+            </span>
+          </div>
         </div>
       </div>
     </footer>
